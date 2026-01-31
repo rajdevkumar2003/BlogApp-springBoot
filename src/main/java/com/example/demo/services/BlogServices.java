@@ -25,7 +25,7 @@ public class BlogServices {
     public void postBlog(Blog blog){
         Blog newBlog=blogRepo.save(blog);
 
-        User user= userRepo.findById(blog.getCreatedBy()).orElse(null);
+        User user= userRepo.findById(newBlog.getCreatedBy()).orElse(null);
 
         if(user!=null){
             List<Blog> userBlogs=user.getBlogs();
@@ -33,5 +33,6 @@ public class BlogServices {
             user.setBlogs(userBlogs);
             userRepo.save(user);
         }
+
     }
 }

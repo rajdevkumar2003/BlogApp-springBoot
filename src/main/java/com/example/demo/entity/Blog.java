@@ -15,17 +15,16 @@ public class Blog {
 
     private String content;
 
-    @DBRef
     private ObjectId createdBy;
-
-    public ObjectId getCreatedBy() {
-        return createdBy;
-    }
 
     public Blog(String title, String content, ObjectId createdBy) {
         this.title = title;
         this.content = content;
         this.createdBy = createdBy;
+    }
+
+    public ObjectId getCreatedBy() {
+        return createdBy;
     }
 
     public void setCreatedBy(ObjectId createdBy) {
