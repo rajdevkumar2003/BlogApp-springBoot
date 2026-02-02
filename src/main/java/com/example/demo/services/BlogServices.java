@@ -4,6 +4,7 @@ import com.example.demo.entity.Blog;
 import com.example.demo.entity.User;
 import com.example.demo.repository.BlogRepo;
 import com.example.demo.repository.UserRepo;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,14 @@ public class BlogServices {
             user.setBlogs(userBlogs);
             userRepo.save(user);
         }
+    }
 
+    public User GetBlogOwner(ObjectId id){
+        Blog bl=blogRepo.findById(id).orElse(null);
+        if(bl!=null){
+            User user=userRepo.findById(bl.getCreatedBy()).orElse(null);
+            return user;
+        }
+        return null;
     }
 }
