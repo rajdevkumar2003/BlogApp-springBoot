@@ -41,4 +41,19 @@ public class UserController {
         List<Blog> blogs=userServices.getBlogsOfUser(id);
         return ResponseEntity.ok(blogs);
     }
+
+    @PatchMapping("/edit/{id}")
+    ResponseEntity<?> PatchUser(@PathVariable ObjectId id, @RequestBody User user){
+        User newUser= userServices.patchUser(id,user);
+        if(newUser==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user id doesn't exist!");
+        }
+        return ResponseEntity.ok(newUser);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity<?> DeleteUser(@PathVariable ObjectId id){
+        userServices.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }

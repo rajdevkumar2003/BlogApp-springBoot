@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class BlogServices {
@@ -21,6 +20,12 @@ public class BlogServices {
 
     public List<Blog> getBlogs(){
         return blogRepo.findAll();
+    }
+
+    public Blog getBlog(ObjectId id){
+        Blog blog=blogRepo.findById(id).orElse(null);
+        if(blog==null)return null;
+        else return blog;
     }
 
     public void postBlog(Blog blog){
@@ -43,5 +48,18 @@ public class BlogServices {
             return user;
         }
         return null;
+    }
+
+    public Blog patchBlog(ObjectId id, Blog newBlog){
+        Blog blog=blogRepo.findById(id).orElse(null);
+        blog.setContent(newBlog.getContent());
+        blog.setTitle(newBlog.getTitle());
+        blogRepo.save(blog);
+        return blog;
+    }
+
+    public void deleteBlog(ObjectId id){
+        blogRepo.deleteById(id);
+        return;
     }
 }
