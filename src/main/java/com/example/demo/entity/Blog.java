@@ -2,9 +2,9 @@ package com.example.demo.entity;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+//db:test->collections:user , blog
 
 @Document(collection = "blog")
 public class Blog {
