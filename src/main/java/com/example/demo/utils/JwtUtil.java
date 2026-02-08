@@ -28,4 +28,12 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(SECRET).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
