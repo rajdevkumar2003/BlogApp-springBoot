@@ -19,10 +19,18 @@ public class AuthController {
     JwtUtil JwtUtil;
 
     @PostMapping("/login")
-    ResponseEntity<?> Login(@RequestBody User user){
-        String pswd =authServices.getPassword(user.getUsername());
-        if(pswd!= user.getPassword())return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or Password is wrong!");
+    public ResponseEntity<?> login(@RequestBody User user) {
 
-        return  ResponseEntity.status(HttpStatus.ACCEPTED).body(JwtUtil.generateToken(user.getUsername()));
+        String dbPassword = authServices.getPassword(user.getUsername());
+
+        if (!dbPassword.equals(user.getPassword())) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Username or Password is wrong!");
+        }
+
+        return ResponseEntity.ok(
+                JwtUtil.generateToken(user.getUsername())
+        );
     }
 }
