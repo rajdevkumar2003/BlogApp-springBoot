@@ -24,11 +24,11 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping
-    ResponseEntity<User> PostUser(@RequestBody User newUser){
-        userServices.postUser(newUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-    }
+//    @PostMapping
+//    ResponseEntity<User> PostUser(@RequestBody User newUser){
+//        userServices.postUser(newUser);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+//    }
 
     @GetMapping("/{id}")
     ResponseEntity<User> GetUser(@PathVariable ObjectId id){

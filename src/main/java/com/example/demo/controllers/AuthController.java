@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entity.User;
 import com.example.demo.services.AuthServices;
+import com.example.demo.services.UserServices;
 import com.example.demo.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    AuthServices authServices;
+    private AuthServices authServices;
 
     @Autowired
-    JwtUtil JwtUtil;
+    private JwtUtil JwtUtil;
+
+    @Autowired
+    private UserServices userServices;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
@@ -32,5 +36,11 @@ public class AuthController {
         return ResponseEntity.ok(
                 JwtUtil.generateToken(user.getUsername())
         );
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> SignUp(@RequestBody User user) {
+        userServices.postUser(user);
+        return  ResponseEntity.status(HttpStatus.CREATED).body("Signed up successfully!");
     }
 }
